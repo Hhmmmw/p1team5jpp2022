@@ -1,0 +1,52 @@
+body{
+    font-family: "Amazon Ember",Arial,sans-serif;
+    font-size: 13px;
+    line-height: 19px;
+    color: #111;
+}
+
+#navbarForm{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+#searchDropdownBox{
+    font-family: "Amazon Ember",Arial,sans-serif;
+    font-size: 6px;
+    font-weight: 700;
+    width: 110px;
+    border: 1px solid rgba(0, 0, 0, 0.273);
+    border-bottom-left-radius: 5%;
+    border-top-left-radius: 5%;
+    background-color: rgba(248, 244, 244, 0.912);
+   
+
+
+}
+#navbarInput{
+    font-family: "Amazon Ember",Arial,sans-serif;
+    font-size: 8px;
+    width:40%;
+    border: 1px solid rgba(0, 0, 0, 0.273);
+    border-right: none;
+    border-left: none;
+}
+#search-Btn{
+ 
+    font-size: 8px;
+    padding: 8px;
+    width:50;
+    border: 1px solid rgba(0, 0, 0, 0.273);
+    border-left: none;
+    cursor: pointer;
+    color: rgb(5, 4, 4);
+    background: #fbba50;
+    border-bottom-right-radius: 5%;
+    border-top-right-radius: 5%;
+
+    
+}
+#search-Btn:hover{
+    background-color: #c27d0ddc;
+}
