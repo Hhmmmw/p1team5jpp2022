@@ -8,6 +8,7 @@ import Main from "./components/Main";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import UserProvider from "./contexts/UserProvider";
+import ProductListPage from "./admin/ProductListPage";
 
 import "./App.css";
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" component={Main} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
+          <Route path="/admin/productlist" component={ProductListPage} />
         </div>
       </UserProvider>
     </Router>

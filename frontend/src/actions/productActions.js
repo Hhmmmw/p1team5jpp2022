@@ -70,7 +70,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
       },
     };
 
@@ -98,7 +98,7 @@ export const createProduct =
 
       const config = {
         headers: {
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
         },
       };
 
@@ -110,7 +110,7 @@ export const createProduct =
       });
       history.push("/admin/productlist");
     } catch (error) {
-      const message = errorMessage(message);
+      const message = errorMessage(error);
 
       dispatch({
         type: PRODUCT_CREATE_FAIL,
@@ -129,7 +129,7 @@ export const updateProduct =
       const config = {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          // Authorization: `Bearer ${token}`,
         },
       };
 
@@ -147,7 +147,7 @@ export const updateProduct =
 
       history.push("/admin/productlist");
     } catch (error) {
-      const message = errorMessage(message);
+      const message = errorMessage(error);
 
       dispatch({
         type: PRODUCT_UPDATE_FAIL,
