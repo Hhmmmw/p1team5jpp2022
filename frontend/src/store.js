@@ -30,6 +30,22 @@ import {
   orderListAllReducer,
 } from "./reducers/orderReducers";
 
+import {
+  listCategoriesReducer,
+  categoryfetchReducer,
+  categoryDeleteReducer,
+  categoryCreateReducer,
+  categoryUpdateReducer,
+} from "./reducers/categoryReducers";
+
+import {
+  listBrandsReducer,
+  brandfetchReducer,
+  brandDeleteReducer,
+  brandCreateReducer,
+  brandUpdateReducer,
+} from "./reducers/brandReducers";
+
 const reducer = combineReducers({
   allProducts: getProductsReducer,
   productDetails: productDetailsReducer,
@@ -53,6 +69,18 @@ const reducer = combineReducers({
   orderDeliver: orderDeliverReducer,
   orderListUser: orderListUserReducer,
   orderListAll: orderListAllReducer,
+
+  listBrands: listBrandsReducer,
+  categoryFetch: categoryfetchReducer,
+  categoryDelete: categoryDeleteReducer,
+  categoryCreate: categoryCreateReducer,
+  categoryUpdate: categoryUpdateReducer,
+
+  listCategories: listCategoriesReducer,
+  brandFetch: brandfetchReducer,
+  brandDelete: brandDeleteReducer,
+  brandCreate: brandCreateReducer,
+  brandUpdate: brandUpdateReducer,
 });
 
 const userDataFromStorage = localStorage.getItem("userData")

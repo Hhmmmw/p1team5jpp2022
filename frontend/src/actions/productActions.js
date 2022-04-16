@@ -69,9 +69,9 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       type: PRODUCT_DELETE_REQUEST,
     });
 
-    const {
-      userLogin: { userData },
-    } = getState();
+    // const {
+    //   userLogin: { userData },
+    // } = getState();
 
     const config = {
       headers: {
@@ -101,9 +101,9 @@ export const createProduct =
         type: PRODUCT_CREATE_REQUEST,
       });
 
-      const {
-        userLogin: { userData },
-      } = getState();
+      // const {
+      //   userLogin: { userData },
+      // } = getState();
 
       const config = {
         headers: {
@@ -135,9 +135,9 @@ export const updateProduct =
         type: PRODUCT_UPDATE_REQUEST,
       });
 
-      const {
-        userLogin: { userData },
-      } = getState();
+      // const {
+      //   userLogin: { userData },
+      // } = getState();
 
       const config = {
         headers: {
@@ -176,9 +176,9 @@ export const reviewProduct =
         type: PRODUCT_REVIEW_REQUEST,
       });
 
-      const {
-        userLogin: { userData },
-      } = getState();
+      // const {
+      //   userLogin: { userData },
+      // } = getState();
 
       const config = {
         headers: {
