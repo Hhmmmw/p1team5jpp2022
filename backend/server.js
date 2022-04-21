@@ -169,6 +169,8 @@ app.use(express.static("public"))
 
 // define the first route
 app.get("/", function (req, res) {
+    run().catch(console.dir);
+
   res.send("<h1>Hello World!</h1>")
 })
 
