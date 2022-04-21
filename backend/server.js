@@ -135,6 +135,8 @@
 
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
+const path = require('path');
+
 const uri = "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.vj9dy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 client.connect(err => {
@@ -142,6 +144,7 @@ client.connect(err => {
   // perform actions on the collection object
   client.close();
 });
+
 async function run() {
     try {
       await client.connect();
@@ -168,12 +171,24 @@ const app = express()
 app.use(express.static("public"))
 
 // define the first route
-app.get("/", function (req, res) {
-    run().catch(console.dir);
+// app.get("/", function (req, res) {
+//     run().catch(console.dir);
 
-  res.send("<h1>Hello World!</h1>")
-})
+//   res.send("<h1>Hello World!</h1>")
+// })
+// Have Node serve the files for our built React app
+app.use(express.static(path.resolve(__dirname, '../fontend/build')));
 
+// Handle GET requests to /api route
+app.get("/api", (req, res) => {
+    res.json({ message: "Hello from server!" });
+  });
+  
+  // All other GET requests not handled before will return our React app
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../frontend/build', 'index.html'));
+  });
+  
 // start the server listening for requests
 app.listen(process.env.PORT || 3000, 
 	() => console.log("Server is running..."));
