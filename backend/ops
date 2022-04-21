@@ -1,0 +1,68 @@
+@post
+addCategory(loggedUser, catInfo:{}){
+    check admin credential
+    save categoy in database
+    error if not success
+    return catID
+}
+@post
+addBrand(loggedUSer,brandInfo:{}){
+    check admin credential
+    save brand in database
+    error if not success
+    return brandID
+}
+@post
+addProduct(loggedUser, prodInfo:{}){
+    check admin credential
+    save product in database
+    error if not success
+    return prodID
+}
+@get
+getProductList(){
+    return list of products
+}
+@get
+getProductListByFilter(){
+    return list of products
+}
+
+@get
+getBrandList(){}
+@get
+getCateforyList(){}
+@get
+searchItems(query,propertiesOfSearch:{}){
+    return itemList
+}
+@get
+getItemsPrices(listOfItemsId){
+    return list of items prices
+    return sum of prices
+}
+@post
+purshaceItems(loggedUser,listOfItemsId:{}){
+    check user credential
+    modify item in database
+    modify user in database
+    return true or false
+}
+@post
+saveCart(cartInfo:{}){
+    save cart to database
+    return cart id
+}
+@post
+checkUserDetails_login(userCredentials){
+    if credential is correct
+    make him logged in an give him a session id
+    save the session details in database
+    and time the session out after 1 hour
+    return the session id
+}
+@post
+saveUser(userInfo){
+    save user info to database
+    return user id
+}
