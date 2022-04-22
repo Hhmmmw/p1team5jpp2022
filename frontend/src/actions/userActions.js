@@ -129,7 +129,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        // Authorization: `Bearer ${userData.token}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     };
 
@@ -160,7 +160,7 @@ export const listAllUsers = () => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        // Authorization: `Bearer ${userData.token}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     };
 
@@ -192,7 +192,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        // Authorization: `Bearer ${userData.token}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     };
 
@@ -222,7 +222,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${userData.token}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     };
 

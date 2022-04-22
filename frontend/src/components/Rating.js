@@ -1,0 +1,28 @@
+import React from "react";
+
+export const Rating = ({ value, text, color }) => {
+  return (
+    <div className="rating">
+      {[1, 2, 3, 4, 5].map((ele, idx) => (
+        <span key={idx}>
+          <i
+            style={{ color: color, fontSize: "0.9em" }}
+            className={
+              value >= ele
+                ? "fas fa-star"
+                : value >= ele - 0.5
+                ? "fas fa-star-half-alt"
+                : "far fa-star"
+            }
+            title={`${value} Stars`}
+          />
+        </span>
+      ))}
+      <span style={{ fontSize: "0.9em" }}>{text && text}</span>
+    </div>
+  );
+};
+Rating.defaultProps = {
+  color: "#f8e825",
+};
+export default Rating;

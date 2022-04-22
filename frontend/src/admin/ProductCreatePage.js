@@ -2,7 +2,6 @@ import axios from "axios";
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
 import Loader from "../components/Loader";
 import { Link } from "react-router-dom";
-
 import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../actions/productActions";
