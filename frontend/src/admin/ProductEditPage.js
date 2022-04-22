@@ -82,8 +82,8 @@ const ProductEditPage = ({ history, match }) => {
     formValues;
   return (
     <Fragment>
-      <Link to="/admin/productlist" className="btn btn-light my-3">
-        Go Back
+      <Link className="btn btn-outline-primary my-3" to="/admin/productlist">
+        <i className="fa fa-arrow-left"></i>
       </Link>
       <Container style={{ textAlign: "left", marginTop: "-50px" }}>
         <Row className="justify-content-md-center">
@@ -128,12 +128,11 @@ const ProductEditPage = ({ history, match }) => {
                     value={image}
                     onChange={(e) => onChange(e)}
                   ></Form.Control>
-                  <Form.File
-                    id="image-file"
-                    label="Choose File"
-                    custom
+                  <Form.Control
+                    type="file"
+                    custom="true"
                     onChange={uploadImageHandler}
-                  ></Form.File>
+                  ></Form.Control>
                   {uploading && <Loader />}
                 </Form.Group>
 

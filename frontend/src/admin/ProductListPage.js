@@ -19,11 +19,16 @@ const ProductListScreen = ({ history }) => {
     success: successDelete,
   } = productDelete;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userData } = userLogin;
+
   useEffect(() => {
-    // If the user is authenticated and admin
+    if (!userData || !userData.isAdmin) {
+      history.push("/login");
+    }
 
     dispatch(getProducts());
-  }, [dispatch, history, successDelete]);
+  }, [dispatch, history, successDelete, userData]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
@@ -42,7 +47,7 @@ const ProductListScreen = ({ history }) => {
           <h1>Products</h1>
         </Col>
         <Col className="text-right">
-          <Button className="my-3" onClick={createProductHandler}>
+          <Button className="float-end my-3" onClick={createProductHandler}>
             <i className="fas fa-plus"></i> Create Product
           </Button>
         </Col>
