@@ -12,6 +12,7 @@ import ProductListPage from "./admin/ProductListPage";
 import ProductEditPage from "./admin/ProductEditPage";
 
 import ProductCreatePage from "./admin/ProductCreatePage";
+import ProductPage from "./pages/ProductPage";
 
 import "./App.css";
 
@@ -26,6 +27,8 @@ function App() {
       <Route path="/login" component={LoginPage} />
 
       <Route path="/signup" component={SignupPage} />
+      <Route path="/product/:id" component={ProductPage} />
+
       <Route path="/admin/productlist" component={ProductListPage} />
       <Route path="/admin/product/:id/edit" component={ProductEditPage} />
 

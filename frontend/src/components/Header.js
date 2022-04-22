@@ -31,18 +31,19 @@ const Header = () => {
                   <i className="fas fa-shopping-cart navbar-icons"></i> Cart
                 </Nav.Link>
               </LinkContainer>
-              {userData ? (
-                <NavDropdown title={userData.name} id="username">
-                  <NavDropdown.Item onClick={logoutHandler}>
-                    <i className="fas fa-sign-out-alt navbar-icons" /> Logout
-                  </NavDropdown.Item>
-                </NavDropdown>
-              ) : (
+              {!userData && (
                 <LinkContainer to="/login">
                   <Nav.Link>
                     <i className="fas fa-user navbar-icons"></i> Sign In
                   </Nav.Link>
                 </LinkContainer>
+              )}
+              {userData && !userData.isAdmin && (
+                <NavDropdown title={userData.name} id="username">
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    <i className="fas fa-sign-out-alt navbar-icons" /> Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
               )}
               {userData && userData.isAdmin && (
                 <NavDropdown title="Admin" id="adminmenu">
@@ -68,6 +69,11 @@ const Header = () => {
                     <NavDropdown.Item>
                       <i className="fas fa-user-shield" />
                       Orders
+                    </NavDropdown.Item>
+                  </LinkContainer>
+                  <LinkContainer to="/admin/orderlist">
+                    <NavDropdown.Item onClick={logoutHandler}>
+                      <i className="fas fa-sign-out-alt navbar-icons" /> Logout
                     </NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
