@@ -13,6 +13,7 @@ import ProductEditPage from "./admin/ProductEditPage";
 
 import ProductCreatePage from "./admin/ProductCreatePage";
 import ProductPage from "./pages/ProductPage";
+import CartPage from "./pages/CartPage";
 
 import "./App.css";
 
@@ -28,6 +29,7 @@ function App() {
 
       <Route path="/signup" component={SignupPage} />
       <Route path="/product/:id" component={ProductPage} />
+      <Route path="/cart/:id?" component={CartPage} />
 
       <Route path="/admin/productlist" component={ProductListPage} />
       <Route path="/admin/product/:id/edit" component={ProductEditPage} />

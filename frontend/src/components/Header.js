@@ -2,7 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { LinkContainer } from "react-router-bootstrap";
-import { Navbar, Nav, Container, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, Container, NavDropdown, Badge } from "react-bootstrap";
 import SearchBox from "./SearchBox";
 import { logout } from "../actions/userActions";
 
@@ -11,6 +11,11 @@ const Header = () => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userData } = userLogin;
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  const count = () =>
+    cartItems.reduce((acc, item) => acc + Number(item.qty), 0);
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -28,7 +33,12 @@ const Header = () => {
             <Nav className="ms-auto nav-mobile">
               <LinkContainer to="/cart">
                 <Nav.Link>
-                  <i className="fas fa-shopping-cart navbar-icons"></i> Cart
+                  <i className="fas fa-shopping-cart navbar-icons"></i> Cart{" "}
+                  {count() > 0 && (
+                    <Badge pill bg="danger">
+                      {count()}
+                    </Badge>
+                  )}
                 </Nav.Link>
               </LinkContainer>
               {!userData && (
