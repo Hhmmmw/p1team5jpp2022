@@ -155,7 +155,7 @@ app.get('/api/products', async (req, res) => {
       const db = client.db('jppTeam5p1');
       const col = db.collection('products');
       let resutls = [];
-      col.find(kw ? { $text: { $search: kw } } : {}).limit(200).forEach(function (doc) {
+      col.find(kw=='' ? { $text: { $search: kw } } : {}).limit(200).forEach(function (doc) {
         if (doc) {
           console.log(doc)
           resutls.push(doc)
