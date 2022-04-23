@@ -759,7 +759,7 @@ app.get('/api/orders/myorders', async (req, res) => {
 //   //     })
 //   //   });
 //   // })();
-//   });
+//   }); 
 //   //// POST /api/users/login
 // app.post('/api/users', function (req, res) {
 //   const user=_.pick(req.body, 'user');//, 'config');
