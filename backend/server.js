@@ -927,7 +927,7 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 
-var Strategy = require('passport-http-bearer').Strategy;
+// var Strategy = require('passport-http-bearer').Strategy;
 //
 const findByToken = function(token, cb) {
   var resutls = [];
