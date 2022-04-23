@@ -922,140 +922,140 @@ app.get('/api/orders/myorders', async (req, res) => {
 
 
 ////
-const passport = require('passport');
-const jwt = require('jsonwebtoken');
-const router = express.Router();
-const bcrypt = require('bcrypt');
+// const passport = require('passport');
+// const jwt = require('jsonwebtoken');
+// const router = express.Router();
+// const bcrypt = require('bcrypt');
 
-// var Strategy = require('passport-http-bearer').Strategy;
-//
-const findByToken = function(token, cb) {
-  var resutls = [];
+// // var Strategy = require('passport-http-bearer').Strategy;
+// //
+// const findByToken = function(token, cb) {
+//   var resutls = [];
 
-  (async () => {
-    MongoClient.connect(url, (err, client) => {
+//   (async () => {
+//     MongoClient.connect(url, (err, client) => {
 
-      assert.equal(null, err);
-      console.log("Connected correctly to server 2");
-      const db = client.db('jppTeam5p1');
-      const col = db.collection('users');
-      col.find({}).forEach(function (doc) {
-        if (doc) {
-          console.log(doc)
-          resutls.push(doc)
-        }
-      }).finally(e => {
-        if (!!resutls) {
-          res.json(resutls);
-        } else {
-          res.status(404).send();
-          client.close();
-          return false;
-        }
-      });
-    });
-  })();
-  process.nextTick(function() {
-    for (var i = 0, len = results.length; i < len; i++) {
-      var record = results[i];
-      if (record.token === token) {
-        return cb(null, record);
-      }
-    }
-    return cb(null, null);
-  });
-}
-passport.use(new Strategy(
-  function(token, cb) {
-    findByToken(token, function(err, user) {
-      if (err) { return cb(err); }
-      if (!user) { return cb(null, false); }
-      return cb(null, user);
-    });
-  }));
-  app.use(require('morgan')('combined'));
+//       assert.equal(null, err);
+//       console.log("Connected correctly to server 2");
+//       const db = client.db('jppTeam5p1');
+//       const col = db.collection('users');
+//       col.find({}).forEach(function (doc) {
+//         if (doc) {
+//           console.log(doc)
+//           resutls.push(doc)
+//         }
+//       }).finally(e => {
+//         if (!!resutls) {
+//           res.json(resutls);
+//         } else {
+//           res.status(404).send();
+//           client.close();
+//           return false;
+//         }
+//       });
+//     });
+//   })();
+//   process.nextTick(function() {
+//     for (var i = 0, len = results.length; i < len; i++) {
+//       var record = results[i];
+//       if (record.token === token) {
+//         return cb(null, record);
+//       }
+//     }
+//     return cb(null, null);
+//   });
+// }
+// passport.use(new Strategy(
+//   function(token, cb) {
+//     findByToken(token, function(err, user) {
+//       if (err) { return cb(err); }
+//       if (!user) { return cb(null, false); }
+//       return cb(null, user);
+//     });
+//   }));
+//   app.use(require('morgan')('combined'));
 
-//// POST /api/users/login
-app.post('/api/users/login',passport.authenticate('bearer', { session: false }), function (req, res) {
-  const {email,password} = _.pick(req.body, {email,password});//, 'config');
-      res.json({ username: req.user.username, email: req.user.emails[0].value });
-  // (async () => { 
-  //   MongoClient.connect(url, (err, client) => {
-  //     assert.equal(null, err);
-  //     console.log("Connected correctly to server 2");
-  //     const db = client.db('jppTeam5p1');
-  //     const col = db.collection('users');
-  //     col.insertOne(body, (err, r) => {
-  //       assert.equal(null, err);
-  //       assert.equal(true, r.acknowledged);
-  //       res.json(r.insertedId);
-  //       console.log(r.insertedId)
-  //       client.close();
-  //     })
-  //   });
-  // })();
-  });
-  //// POST /api/users/login
-app.post('/api/users', function (req, res) {
-  const user=_.pick(req.body, 'user');//, 'config');
-  console.log(user);
-      // res.json({ username: req.user.username, email: req.user.emails[0].value });
-  (async () => { 
-    MongoClient.connect(url, (err, client) => {
-      assert.equal(null, err);
-      console.log("Connected correctly to server 2");
-      const db = client.db('jppTeam5p1');
-      const col = db.collection('users');
-      col.findOne({ "email": user.email }).then(function (doc) {
-        if (doc) {
-          res.status(404).send();
-          client.close();
-          return false;  
-          // Got a document
-          // console.log("find doc",doc)
-          // result=doc
-          // return result
-          // res.json(doc);
-          // client.close();
-        }else{
-          // res.status(404).send();
-          col.insertOne({...user,token:null}, (err, r) => {
-            assert.equal(null, err);
-            assert.equal(true, r.acknowledged);
-            res.json(r.insertedId);
-            console.log(r.insertedId)
-            client.close();
-          })
-          client.close();
-          return false;  
-        }
-      })
+// //// POST /api/users/login
+// app.post('/api/users/login',passport.authenticate('bearer', { session: false }), function (req, res) {
+//   const {email,password} = _.pick(req.body, {email,password});//, 'config');
+//       res.json({ username: req.user.username, email: req.user.emails[0].value });
+//   // (async () => { 
+//   //   MongoClient.connect(url, (err, client) => {
+//   //     assert.equal(null, err);
+//   //     console.log("Connected correctly to server 2");
+//   //     const db = client.db('jppTeam5p1');
+//   //     const col = db.collection('users');
+//   //     col.insertOne(body, (err, r) => {
+//   //       assert.equal(null, err);
+//   //       assert.equal(true, r.acknowledged);
+//   //       res.json(r.insertedId);
+//   //       console.log(r.insertedId)
+//   //       client.close();
+//   //     })
+//   //   });
+//   // })();
+//   });
+//   //// POST /api/users/login
+// app.post('/api/users', function (req, res) {
+//   const user=_.pick(req.body, 'user');//, 'config');
+//   console.log(user);
+//       // res.json({ username: req.user.username, email: req.user.emails[0].value });
+//   (async () => { 
+//     MongoClient.connect(url, (err, client) => {
+//       assert.equal(null, err);
+//       console.log("Connected correctly to server 2");
+//       const db = client.db('jppTeam5p1');
+//       const col = db.collection('users');
+//       col.findOne({ "email": user.email }).then(function (doc) {
+//         if (doc) {
+//           res.status(404).send();
+//           client.close();
+//           return false;  
+//           // Got a document
+//           // console.log("find doc",doc)
+//           // result=doc
+//           // return result
+//           // res.json(doc);
+//           // client.close();
+//         }else{
+//           // res.status(404).send();
+//           col.insertOne({...user,token:null}, (err, r) => {
+//             assert.equal(null, err);
+//             assert.equal(true, r.acknowledged);
+//             res.json(r.insertedId);
+//             console.log(r.insertedId)
+//             client.close();
+//           })
+//           client.close();
+//           return false;  
+//         }
+//       })
      
-    });
-  })();
-  });
-  app.get('/api/users/', async (req, res) => {
-    (async () => {
-      MongoClient.connect(url, (err, client) => {
-        assert.equal(null, err);
-        console.log("Connected correctly to server 2");
-        const db = client.db('jppTeam5p1');
-        const col = db.collection('users');
-        let resutls = [];
-        col.find({}).limit(200).forEach(function (doc) {
-          if (doc) {
-            console.log(doc)
-            resutls.push(doc)
-          }
-        }).finally(e => {
-          if (!!resutls) {
-            res.json(resutls);
-          } else {
-            res.status(404).send();
-            client.close();
-            return false;
-          }
-        });
-      });
-    })();
-  });
+//     });
+//   })();
+//   });
+//   app.get('/api/users/', async (req, res) => {
+//     (async () => {
+//       MongoClient.connect(url, (err, client) => {
+//         assert.equal(null, err);
+//         console.log("Connected correctly to server 2");
+//         const db = client.db('jppTeam5p1');
+//         const col = db.collection('users');
+//         let resutls = [];
+//         col.find({}).limit(200).forEach(function (doc) {
+//           if (doc) {
+//             console.log(doc)
+//             resutls.push(doc)
+//           }
+//         }).finally(e => {
+//           if (!!resutls) {
+//             res.json(resutls);
+//           } else {
+//             res.status(404).send();
+//             client.close();
+//             return false;
+//           }
+//         });
+//       });
+//     })();
+//   });
