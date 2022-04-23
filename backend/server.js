@@ -7,11 +7,11 @@ const path = require('path');
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 const uri = "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.vj9dy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 var assert = require('assert');
-const url =uri;// 'mongodb://localhost/'
+const url = uri;// 'mongodb://localhost/'
 
 app.use(bodyParser.json());
-app.get('/', (req,res) =>{
-  res.sendFile(path.join(__dirname+'../frontend/build/index.html'));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '../frontend/build/index.html'));
 });
 
 // GET /
@@ -148,29 +148,31 @@ app.post('/api/brand', function (req, res) {
 // GET /api/products?keyword=
 app.get('/api/products', async (req, res) => {
   const kw = req.query.keyword;
-    (async () => {
-      MongoClient.connect(url, (err, client) => {
-        assert.equal(null, err);
-        console.log("Connected correctly to server 2");
-        const db = client.db('jppTeam5p1');
-        const col = db.collection('products');
-        let resutls = [];
-        col.find(kw ? {} : { $text: kw }).limit(200).forEach(function (doc) {
-          if (doc) {
-            console.log(doc)
-            resutls.push(doc)
-          }
-        }).finally(e => {
-          if (!!resutls) {
-            res.json(resutls);
-          } else {
-            res.status(404).send();
-            client.close();
-            return false;
-          }
-        });
+  (async () => {
+    MongoClient.connect(url, (err, client) => {
+      assert.equal(null, err);
+      console.log("Connected correctly to server 2");
+      const db = client.db('jppTeam5p1');
+      const col = db.collection('products');
+      let resutls = [];
+      col.find(kw ? {} : {
+        $text: { $search: kw }
+      }).limit(200).forEach(function (doc) {
+        if (doc) {
+          console.log(doc)
+          resutls.push(doc)
+        }
+      }).finally(e => {
+        if (!!resutls) {
+          res.json(resutls);
+        } else {
+          res.status(404).send();
+          client.close();
+          return false;
+        }
       });
-    })();
+    });
+  })();
 });
 // GET /api/products/:id
 app.get('/api/products/:id', async (req, res) => {
@@ -229,38 +231,38 @@ app.post('/api/products/:id/reviews', function (req, res) {
       const col = db.collection('products');
       let result;
       // try {
-        col.find({ "_id": new ObjectId(`${req.params.id}`) }).limit(200).forEach(function (doc) {
-          if (doc) {
-            // Got a document
-            console.log("find doc",doc)
-            result=doc
-            return result
-            // res.json(doc);
-            // client.close();
-          }else{
-            res.status(404).send();
-            client.close();
-            return false;  
-          }
-        }).then(e=>{
-          if(!!result){
-            console.log("here",result)
-            if(!result.review)
-            result={...result,review:[]}
-            result={...result,review:[...result.review,{...body.review}]}
-            col.replaceOne({ "_id": new ObjectId(`${req.params.id}`) },{...result}).then((e)=>{res.json(e);client.close()})
-          }else{
-            res.status(404).send();
-            client.close();
-            return false;
-  
-          }
-        }).catch(e=>{
+      col.find({ "_id": new ObjectId(`${req.params.id}`) }).limit(200).forEach(function (doc) {
+        if (doc) {
+          // Got a document
+          console.log("find doc", doc)
+          result = doc
+          return result
+          // res.json(doc);
+          // client.close();
+        } else {
           res.status(404).send();
           client.close();
           return false;
-        })
-    }); 
+        }
+      }).then(e => {
+        if (!!result) {
+          console.log("here", result)
+          if (!result.review)
+            result = { ...result, review: [] }
+          result = { ...result, review: [...result.review, { ...body.review }] }
+          col.replaceOne({ "_id": new ObjectId(`${req.params.id}`) }, { ...result }).then((e) => { res.json(e); client.close() })
+        } else {
+          res.status(404).send();
+          client.close();
+          return false;
+
+        }
+      }).catch(e => {
+        res.status(404).send();
+        client.close();
+        return false;
+      })
+    });
   })();
 });
 // })
@@ -276,38 +278,38 @@ app.put('/api/products/:id', function (req, res) {
       const col = db.collection('products');
       let result;
       // try {
-        col.find({ "_id": new ObjectId(`${req.params.id}`) }).limit(200).forEach(function (doc) {
-          if (doc) {
-            // Got a document
-            console.log("find doc",doc)
-            result=doc
-            return result
-            // res.json(doc);
-            // client.close();
-          }else{
-            res.status(404).send();
-            client.close();
-            return false;  
-          }
-        }).then(e=>{
-          if(!!result){
-            console.log("here",result)
-            if(!result.productData)
-            result={...result,productData:[]}
-            result={...result,productData:[...result.productData,{...body.productData}]}
-            col.replaceOne({ "_id": new ObjectId(`${req.params.id}`) },{...result}).then((e)=>{res.json(e);client.close()})
-          }else{
-            res.status(404).send();
-            client.close();
-            return false;
-  
-          }
-        }).catch(e=>{
+      col.find({ "_id": new ObjectId(`${req.params.id}`) }).limit(200).forEach(function (doc) {
+        if (doc) {
+          // Got a document
+          console.log("find doc", doc)
+          result = doc
+          return result
+          // res.json(doc);
+          // client.close();
+        } else {
           res.status(404).send();
           client.close();
           return false;
-        })
-    }); 
+        }
+      }).then(e => {
+        if (!!result) {
+          console.log("here", result)
+          if (!result.productData)
+            result = { ...result, productData: [] }
+          result = { ...result, productData: [...result.productData, { ...body.productData }] }
+          col.replaceOne({ "_id": new ObjectId(`${req.params.id}`) }, { ...result }).then((e) => { res.json(e); client.close() })
+        } else {
+          res.status(404).send();
+          client.close();
+          return false;
+
+        }
+      }).catch(e => {
+        res.status(404).send();
+        client.close();
+        return false;
+      })
+    });
   })();
 });
 
@@ -340,29 +342,29 @@ app.delete('/api/products/:id', function (req, res) {
 ////
 // GET /api/category/
 app.get('/api/category/', async (req, res) => {
-    (async () => {
-      MongoClient.connect(url, (err, client) => {
-        assert.equal(null, err);
-        console.log("Connected correctly to server 2");
-        const db = client.db('jppTeam5p1');
-        const col = db.collection('category');
-        let resutls = [];
-        col.find({}).limit(200).forEach(function (doc) {
-          if (doc) {
-            console.log(doc)
-            resutls.push(doc)
-          }
-        }).finally(e => {
-          if (!!resutls) {
-            res.json(resutls);
-          } else {
-            res.status(404).send();
-            client.close();
-            return false;
-          }
-        });
+  (async () => {
+    MongoClient.connect(url, (err, client) => {
+      assert.equal(null, err);
+      console.log("Connected correctly to server 2");
+      const db = client.db('jppTeam5p1');
+      const col = db.collection('category');
+      let resutls = [];
+      col.find({}).limit(200).forEach(function (doc) {
+        if (doc) {
+          console.log(doc)
+          resutls.push(doc)
+        }
+      }).finally(e => {
+        if (!!resutls) {
+          res.json(resutls);
+        } else {
+          res.status(404).send();
+          client.close();
+          return false;
+        }
       });
-    })();
+    });
+  })();
 });
 
 // GET /api/category/:id
@@ -447,42 +449,42 @@ app.put('/api/category/:id', function (req, res) {
       const col = db.collection('category');
       let result;
       // try {
-        col.find({ "_id": new ObjectId(`${req.params.id}`) }).limit(200).forEach(function (doc) {
-          if (doc) {
-            // Got a document
-            console.log("find doc",doc)
-            result=doc
-            return result
-            // res.json(doc);
-            // client.close();
-          }else{
-            res.status(404).send();
-            client.close();
-            return false;  
-          }
-        }).then(e=>{
-          if(!!result){
-            console.log("here",result)
-            if(!result.productData)
-            result={...result,productData:[]}
-            result={...result,productData:[...result.productData,{...body.productData}]}
-            col.replaceOne({ "_id": new ObjectId(`${req.params.id}`) },{...result}).then((e)=>{res.json(e);client.close()})
-          }else{
-            res.status(404).send();
-            client.close();
-            return false;
-  
-          }
-        }).catch(e=>{
+      col.find({ "_id": new ObjectId(`${req.params.id}`) }).limit(200).forEach(function (doc) {
+        if (doc) {
+          // Got a document
+          console.log("find doc", doc)
+          result = doc
+          return result
+          // res.json(doc);
+          // client.close();
+        } else {
           res.status(404).send();
           client.close();
           return false;
-        })
+        }
+      }).then(e => {
+        if (!!result) {
+          console.log("here", result)
+          if (!result.productData)
+            result = { ...result, productData: [] }
+          result = { ...result, productData: [...result.productData, { ...body.productData }] }
+          col.replaceOne({ "_id": new ObjectId(`${req.params.id}`) }, { ...result }).then((e) => { res.json(e); client.close() })
+        } else {
+          res.status(404).send();
+          client.close();
+          return false;
+
+        }
+      }).catch(e => {
+        res.status(404).send();
+        client.close();
+        return false;
+      })
       // } catch (e) {
-      
+
       // }
-      
-    }); 
+
+    });
   })();
 });
 ///
@@ -569,42 +571,42 @@ app.put('/api/orders/:id/pay', function (req, res) {
       const col = db.collection('orders');
       let result;
       // try {
-        col.find({ "_id": new ObjectId(`${req.params.id}`) }).limit(200).forEach(function (doc) {
-          if (doc) {
-            // Got a document
-            console.log("find doc",doc)
-            result=doc
-            return result
-            // res.json(doc);
-            // client.close();
-          }else{
-            res.status(404).send();
-            client.close();
-            return false;  
-          }
-        }).then(e=>{
-          if(!!result){
-            console.log("here",result)
-            if(!result.paymentResult)
-            result={...result,paymentResult:[]}
-            result={...result,paymentResult:[...result.paymentResult,{...body.paymentResult}]}
-            col.replaceOne({ "_id": new ObjectId(`${req.params.id}`) },{...result}).then((e)=>{res.json(e);client.close()})
-          }else{
-            res.status(404).send();
-            client.close();
-            return false;
-  
-          }
-        }).catch(e=>{
+      col.find({ "_id": new ObjectId(`${req.params.id}`) }).limit(200).forEach(function (doc) {
+        if (doc) {
+          // Got a document
+          console.log("find doc", doc)
+          result = doc
+          return result
+          // res.json(doc);
+          // client.close();
+        } else {
           res.status(404).send();
           client.close();
           return false;
-        })
+        }
+      }).then(e => {
+        if (!!result) {
+          console.log("here", result)
+          if (!result.paymentResult)
+            result = { ...result, paymentResult: [] }
+          result = { ...result, paymentResult: [...result.paymentResult, { ...body.paymentResult }] }
+          col.replaceOne({ "_id": new ObjectId(`${req.params.id}`) }, { ...result }).then((e) => { res.json(e); client.close() })
+        } else {
+          res.status(404).send();
+          client.close();
+          return false;
+
+        }
+      }).catch(e => {
+        res.status(404).send();
+        client.close();
+        return false;
+      })
       // } catch (e) {
-      
+
       // }
-      
-    }); 
+
+    });
   })();
 });
 // PUT /api/orders/:id/deliver
@@ -619,41 +621,41 @@ app.put('/api/orders/:id/deliver', function (req, res) {
       const col = db.collection('orders');
       let result;
       // try {
-        col.find({ "_id": new ObjectId(`${req.params.id}`) }).limit(200).forEach(function (doc) {
-          if (doc) {
-            // Got a document
-            console.log("find doc",doc)
-            result=doc
-            return result
-            // res.json(doc);
-            // client.close();
-          }else{
-            res.status(404).send();
-            client.close();
-            return false;  
-          }
-        }).then(e=>{
-          if(!!result){
-            console.log("here",result)
-            if(!result.status)
-            result={...result,status:"delivered"}
-            col.replaceOne({ "_id": new ObjectId(`${req.params.id}`) },{...result}).then((e)=>{res.json(e);client.close()})
-          }else{
-            res.status(404).send();
-            client.close();
-            return false;
-  
-          }
-        }).catch(e=>{
+      col.find({ "_id": new ObjectId(`${req.params.id}`) }).limit(200).forEach(function (doc) {
+        if (doc) {
+          // Got a document
+          console.log("find doc", doc)
+          result = doc
+          return result
+          // res.json(doc);
+          // client.close();
+        } else {
           res.status(404).send();
           client.close();
           return false;
-        })
+        }
+      }).then(e => {
+        if (!!result) {
+          console.log("here", result)
+          if (!result.status)
+            result = { ...result, status: "delivered" }
+          col.replaceOne({ "_id": new ObjectId(`${req.params.id}`) }, { ...result }).then((e) => { res.json(e); client.close() })
+        } else {
+          res.status(404).send();
+          client.close();
+          return false;
+
+        }
+      }).catch(e => {
+        res.status(404).send();
+        client.close();
+        return false;
+      })
       // } catch (e) {
-      
+
       // }
-      
-    }); 
+
+    });
   })();
 });
 // GET /api/orders/myorders
@@ -795,7 +797,7 @@ app.get('/api/orders/myorders', async (req, res) => {
 //           return false;  
 //         }
 //       })
-     
+
 //     });
 //   })();
 //   });
