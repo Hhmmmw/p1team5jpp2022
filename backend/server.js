@@ -137,7 +137,7 @@
 // const { MongoClient, ServerApiVersion } = require('mongodb');
 // const path = require('path');
 
-// const uri = "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.vj9dy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.vj9dy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 // const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 // client.connect(err => {
 //   const collection = client.db("test").collection("devices");
@@ -274,7 +274,7 @@ app.listen(process.env.PORT || 3000,
 //   `)
 // })
 var assert = require('assert');
-const url = 'mongodb://localhost/'
+const url =uri;// 'mongodb://localhost/'
 app.get('/api/brand/', async (_req, res) => {
   (async () => {
     MongoClient.connect(url, (err, client) => {
