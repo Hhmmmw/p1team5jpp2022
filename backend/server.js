@@ -210,7 +210,7 @@ app.listen(process.env.PORT || 3000,
 
 // const client = new MongoClient('mongodb://localhost/');
 
-// let db, users, brands, products, orders;
+// let db, users, brand, products, orders;
 // async function run() {
 //   const client = await MongoClient.connect('mongodb://localhost/', { 
 //     useNewUrlParser: true, 
@@ -221,7 +221,7 @@ app.listen(process.env.PORT || 3000,
 //     // await client.connect();
 //     db = client.db('jppTeam5p1');
 //     users = db.collection("users");
-//     brands = db.collection("brands");
+//     brand = db.collection("brand");
 //     products = db.collection("products");
 //     orders = db.collection("orders");
 
@@ -281,7 +281,7 @@ app.get('/api/brand/', async (_req, res) => {
       assert.equal(null, err);
       console.log("Connected correctly to server 2");
       const db = client.db('jppTeam5p1');
-      const col = db.collection('brands');
+      const col = db.collection('brand');
       let resutls = [];
       col.find({}).limit(200).forEach(function (doc) {
         if (doc) {
@@ -307,7 +307,7 @@ app.get('/api/brand/:id', async (req, res) => {
       assert.equal(null, err);
       console.log("Connected correctly to server 2");
       const db = client.db('jppTeam5p1');
-      const col = db.collection('brands');
+      const col = db.collection('brand');
       try {
         col.find({ "_id": new ObjectId(`${req.params.id}`) }).limit(200).forEach(function (doc) {
           if (doc) {
@@ -332,7 +332,7 @@ app.delete('/api/brand/:id', function (req, res) {
       assert.equal(null, err);
       console.log("Connected correctly to server 2");
       const db = client.db('jppTeam5p1');
-      const col = db.collection('brands');
+      const col = db.collection('brand');
       col.findOneAndDelete({ "_id": new ObjectId(`${req.params.id}`) }).then(function (doc) {
         if (doc) {
           console.log(doc)
@@ -358,7 +358,7 @@ app.post('/api/brand', function (req, res) {
       assert.equal(null, err);
       console.log("Connected correctly to server 2");
       const db = client.db('jppTeam5p1');
-      const col = db.collection('brands');
+      const col = db.collection('brand');
       col.insertOne(body, (err, r) => {
         assert.equal(null, err);
         assert.equal(true, r.acknowledged);
