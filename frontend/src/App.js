@@ -16,6 +16,8 @@ import ProductPage from "./pages/ProductPage";
 import CartPage from "./pages/CartPage";
 import ShippingPage from "./pages/ShippingPage";
 import PaymentPage from "./pages/PaymentPage";
+import PlaceOrderPage from "./pages/PlaceOrderPage";
+import OrderPlacedPage from "./pages/OrderPlacedPage";
 
 import "./App.css";
 
@@ -37,6 +39,9 @@ function App() {
       <Route path="/admin/product/:id/edit" component={ProductEditPage} />
       <Route path="/shipping" component={ShippingPage} />
       <Route path="/payment" component={PaymentPage} />
+
+      <Route path="/placeOrder" component={PlaceOrderPage} />
+      <Route path="/order/:id/success" component={OrderPlacedPage} />
 
       <Route path="/admin/product/create" component={ProductCreatePage} />
     </Router>
