@@ -147,7 +147,7 @@ app.post('/api/brand', function (req, res) {
 //////
 // GET /api/products?keyword=
 app.get('/api/products', async (req, res) => {
-  const kw = req.query.keyword
+  const kw = req.query.keyword;
     (async () => {
       MongoClient.connect(url, (err, client) => {
         assert.equal(null, err);
