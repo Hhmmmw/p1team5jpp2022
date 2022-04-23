@@ -133,7 +133,7 @@ app.post('/api/brand', function (req, res) {
       console.log("Connected correctly to server 2");
       const db = client.db('jppTeam5p1');
       const col = db.collection('brand');
-      col.insertOne({...body}, (err, r) => {
+      col.insertOne({ ...body }, (err, r) => {
         assert.equal(null, err);
         assert.equal(true, r.acknowledged);
         res.json(r.insertedId);
@@ -155,9 +155,7 @@ app.get('/api/products', async (req, res) => {
       const db = client.db('jppTeam5p1');
       const col = db.collection('products');
       let resutls = [];
-      col.find(kw ? {} : {
-        $text: { $search: kw }
-      }).limit(200).forEach(function (doc) {
+      col.find(kw ? { $text: { $search: kw } } : {}).limit(200).forEach(function (doc) {
         if (doc) {
           console.log(doc)
           resutls.push(doc)
