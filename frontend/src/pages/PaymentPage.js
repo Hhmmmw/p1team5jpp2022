@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Form, Button, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import FormContainer from "../components/FormContainer";
-// import CheckoutSteps from "../components/CheckoutSteps";
 import { savePaymentMethod } from "../actions/cartActions";
 
 const PaymentPage = ({ history }) => {
@@ -11,9 +10,6 @@ const PaymentPage = ({ history }) => {
   const { user } = useSelector((state) => state.userLogin);
 
   useEffect(() => {
-    // if (!user) {
-    //   history.push("/login");
-    // } else
     if (!shippingAddress) {
       history.push("/shipping");
     }

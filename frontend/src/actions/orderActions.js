@@ -1,4 +1,5 @@
 import axios from "axios";
+import { CART_RESET } from "../types/cartTypes";
 
 import {
   ORDER_CREATE_REQUEST,
@@ -36,13 +37,13 @@ export const createOrder = (order) => async (dispatch, getState) => {
     });
 
     const {
-      userLogin: { userInfo },
+      userLogin: { userData },
     } = getState();
 
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     };
 
@@ -53,7 +54,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
       payload: data,
     });
     dispatch({
-      type: CART_CLEAR_ITEMS,
+      type: CART_RESET,
       payload: data,
     });
     localStorage.removeItem("cartItems");
@@ -74,12 +75,12 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
     });
 
     const {
-      userLogin: { userInfo },
+      userLogin: { userData },
     } = getState();
 
     const config = {
       headers: {
-        // Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     };
 
@@ -107,13 +108,13 @@ export const payOrder =
       });
 
       const {
-        userLogin: { userInfo },
+        userLogin: { userData },
       } = getState();
 
       const config = {
         headers: {
           "Content-Type": "application/json",
-          // Authorization: `Bearer ${userInfo.token}`,
+          Authorization: `Bearer ${userData.token}`,
         },
       };
 
@@ -144,12 +145,12 @@ export const deliverOrder = (order) => async (dispatch, getState) => {
     });
 
     const {
-      userLogin: { userInfo },
+      userLogin: { userData },
     } = getState();
 
     const config = {
       headers: {
-        // Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     };
 
@@ -180,12 +181,12 @@ export const listMyOrders = () => async (dispatch, getState) => {
     });
 
     const {
-      userLogin: { userInfo },
+      userLogin: { userData },
     } = getState();
 
     const config = {
       headers: {
-        // Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     };
 
@@ -212,12 +213,12 @@ export const listOrders = () => async (dispatch, getState) => {
     });
 
     const {
-      userLogin: { userInfo },
+      userLogin: { userData },
     } = getState();
 
     const config = {
       headers: {
-        // Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     };
 
