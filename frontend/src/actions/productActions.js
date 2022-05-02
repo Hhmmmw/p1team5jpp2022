@@ -33,7 +33,7 @@ export const getProducts =
     try {
       dispatch({ type: GET_PRODUCTS_REQUEST });
 
-      const { data } = await axios.get(`/api/products?keyword=${keyword}`);
+      // const { data } = await axios.get(`/api/products?keyword=${keyword}`);
 
       dispatch({
         type: GET_PRODUCTS_SUCCESS,
