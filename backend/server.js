@@ -9,9 +9,15 @@ const uri = "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.vj9dy.mongod
 var assert = require('assert');
 const url = uri;// 'mongodb://localhost/'
 
+require('dotenv').config();
+
 app.use(bodyParser.json());
 app.get('/', (req, res) => {
+  if(process.env.LOCALHOST=="false")
   res.sendFile(path.join(__dirname + '../frontend/build/index.html'));
+  else
+  res.sendFile(path.join(__dirname + '../frontend/public/index.html'));
+
 });
 
 // GET /
