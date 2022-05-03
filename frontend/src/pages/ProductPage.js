@@ -91,8 +91,8 @@ const ProductPage = ({ history, match }) => {
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <Rating
-                        value={product.rating}
-                        text={`${product.numReviews} reviews`}
+                        value={product.rating?.rate}
+                        text={`${product.rating?.count} reviews`}
                       />
                     </ListGroup.Item>
                     <ListGroup.Item>
@@ -155,7 +155,7 @@ const ProductPage = ({ history, match }) => {
                   <Message variant="secondary">No Reviews yet</Message>
                 )}
                 <ListGroup variant="flush"></ListGroup>
-                {product.reviews.map((review) => (
+                {product.reviews?.map((review) => (
                   <ListGroup.Item key={review._id}>
                     <div>
                       <img

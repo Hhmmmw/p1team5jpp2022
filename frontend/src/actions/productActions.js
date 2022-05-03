@@ -33,7 +33,9 @@ export const getProducts =
     try {
       dispatch({ type: GET_PRODUCTS_REQUEST });
 
-      // const { data } = await axios.get(`/api/products?keyword=${keyword}`);
+      const { data } = await axios.get(`/api/products?keyword=${keyword}`);//.then(e=>console.log("axios:36",e));
+      // await axios.get(`/api/products?keyword=${keyword}`).then(e=>console.log("axios:36",e));
+      // console.log("axios:36",data)
 
       dispatch({
         type: GET_PRODUCTS_SUCCESS,

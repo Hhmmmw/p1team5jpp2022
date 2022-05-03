@@ -24,8 +24,8 @@ const Product = ({ product }) => {
         <Card.Text as="div">
           {product && product.rating && (
             <Rating
-              value={product.rating}
-              text={`${product.numReviews} reviews`}
+              value={product.rating.rate}
+              text={`${product.rating.count} reviews`}
             />
           )}
         </Card.Text>

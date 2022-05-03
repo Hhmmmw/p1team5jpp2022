@@ -5,7 +5,10 @@ const bodyParser = require('body-parser')
 const _ = require('underscore');
 const path = require('path');
 app.use(express.static(path.join(__dirname, '../frontend/build')));
-const uri = "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.vj9dy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const username = encodeURIComponent("m001-student");
+const password = encodeURIComponent("m001-mongodb-basics");
+
+const uri = `mongodb+srv://${username}:${password}@sandbox.vj9dy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 var assert = require('assert');
 const url = uri;// 'mongodb://localhost/'
 
@@ -16,7 +19,7 @@ app.get('/', (req, res) => {
   if(process.env.LOCALHOST=="false")
   res.sendFile(path.join(__dirname + '../frontend/build/index.html'));
   else
-  res.sendFile(path.join(__dirname + '../frontend/public/index.html'));
+  res.sendFile(path.join(__dirname + '../frontend/index.html'));
 
 });
 
@@ -161,14 +164,16 @@ app.get('/api/products', async (req, res) => {
       const db = client.db('jppTeam5p1');
       const col = db.collection('products');
       let resutls = [];
-      col.find(kw=='' ? { $text: { $search: kw } } : {}).limit(200).forEach(function (doc) {
+      // col.find(kw!=='' ? { $text: { $search: kw } } : {}).limit(500).forEach(function (doc) {
+        col.find(kw!=='' ? { $text: { $search: kw } } : {}).limit(500).forEach(function (doc) {
         if (doc) {
-          console.log(doc)
+          // console.log(doc)
           resutls.push(doc)
         }
       }).finally(e => {
         if (!!resutls) {
-          res.json(resutls);
+          // console.log(resutls);
+          res.json({products:resutls,pages:1,page:1});
         } else {
           res.status(404).send();
           client.close();
@@ -830,6 +835,6 @@ app.get('/api/orders/myorders', async (req, res) => {
 //       });
 //     })();
 //   });
-app.listen(process.env.PORT || 3000,
+app.listen(process.env.PORT || 3001,
   () => console.log("Server is running..."));
 
