@@ -164,20 +164,8 @@ app.get('/api/products', async (req, res) => {
       const db = client.db('jppTeam5p1');
       const col = db.collection('products');
       let resutls = [];
-      col.find(kw!=='' ? { $text: { $search: kw } } : {}).limit(500).forEach(function (doc) {
-      // col.find(kw !== '' ? 
-      //   {
-      //     '$search': {
-      //       'index': 'default',
-      //       'text': {
-      //         'query': 'wd',
-      //         'path': {
-      //           'wildcard': '*'
-      //         }
-      //       }
-      //     }
-      //   }
-      // : {}).limit(500).forEach(function (doc) {
+      // col.find(kw!=='' ? { $text: { $search: kw } } : {}).limit(500).forEach(function (doc) {
+      col.find(kw !== '' ? [{ '$search': { 'index': 'default', 'text': { 'query': 'wd', 'path': { 'wildcard': '*' } } } }] : {}).limit(500).forEach(function (doc) {
         if (doc) {
           // console.log(doc)
           resutls.push(doc)
@@ -860,8 +848,8 @@ const UserModel = require('./model/model');
 
 // mongoose.connect('mongodb://127.0.0.1:27017/passport-jwt', { useMongoClient: true });
 // mongoose.connect("mongodb://127.0.0.1:27017/passport-jwt", {
-  // useNewUrlParser: true,
-  // useUnifiedTopology: true,
+// useNewUrlParser: true,
+// useUnifiedTopology: true,
 // });
 // mongoose.set("useCreateIndex", true);
 // mongoose.connection.on('error', error => console.log(error) );
@@ -882,7 +870,7 @@ app.use('/', routes);
 app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
 
 // Handle errors.
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.json({ error: err });
 });
