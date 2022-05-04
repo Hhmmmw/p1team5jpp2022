@@ -165,7 +165,19 @@ app.get('/api/products', async (req, res) => {
       const col = db.collection('products');
       let resutls = [];
       // col.find(kw!=='' ? { $text: { $search: kw } } : {}).limit(500).forEach(function (doc) {
-      col.find(kw !== '' ? [{$search: {index: 'default', text: {query: `${kw}` , path: {wildcard: '*'}}}}]: {}).limit(500).forEach(function (doc) {
+      col.find(kw !== '' ? [
+        {
+          '$search': {
+            'index': 'default',
+            'text': {
+              'query': 'wd',
+              'path': {
+                'wildcard': '*'
+              }
+            }
+          }
+        }
+      ]: {}).limit(500).forEach(function (doc) {
         if (doc) {
           // console.log(doc)
           resutls.push(doc)
