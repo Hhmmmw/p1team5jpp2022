@@ -172,22 +172,24 @@ app.get('/api/products', async (req, res) => {
             col.find({})
             )
             )
-            .limit(500).forEach(function (doc) {
-      // col.find(kw !== '' ? [{ '$search': { 'index': 'default', 'text': { 'query': 'wd', 'path': { 'wildcard': '*'}  } } }] : {}).limit(500).forEach(function (doc) {
-        if (doc) {
-          // console.log(doc)
-          resutls.push(doc)
-        }
-      }).finally(e => {
-        if (!!resutls) {
-          // console.log(resutls);
-          res.json({ products: resutls, pages: 1, page: 1 });
-        } else {
-          res.status(404).send();
-          client.close();
-          return false;
-        }
-      });
+            .then(e=>{ 
+              e.limit(500).forEach(function (doc) {
+              // col.find(kw !== '' ? [{ '$search': { 'index': 'default', 'text': { 'query': 'wd', 'path': { 'wildcard': '*'}  } } }] : {}).limit(500).forEach(function (doc) {
+                if (doc) {
+                  // console.log(doc)
+                  resutls.push(doc)
+                }
+              }).finally(e => {
+                if (!!resutls) {
+                  // console.log(resutls);
+                  res.json({ products: resutls, pages: 1, page: 1 });
+                } else {
+                  res.status(404).send();
+                  client.close();
+                  return false;
+                }
+              });});
+           
     });
   })();
 });
