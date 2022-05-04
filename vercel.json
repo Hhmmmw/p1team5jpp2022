@@ -5,5 +5,11 @@
       "src": "backend/server.js",
       "use": "@now/node"
     }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "frontend/build/index.js"
+    }
   ]
 }
