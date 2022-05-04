@@ -27,6 +27,16 @@ router.post(
   }
 );
 router.post(
+  '/api/users',
+  passport.authenticate('signup', { session: false }),
+  async (req, res, next) => {
+    res.json({
+      message: 'Signup successful',
+      user: req.user
+    });
+  }
+);
+router.post(
     '/login',
     async (req, res, next) => {
       passport.authenticate(
