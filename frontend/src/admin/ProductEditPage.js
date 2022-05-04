@@ -31,7 +31,7 @@ const ProductEditPage = ({ history, match }) => {
       dispatch(listProductDetails(productId));
     } else {
       setFormValues({
-        name: product.name,
+        name: product.title,
         description: product.description,
         price: product.price,
         category: product.category,

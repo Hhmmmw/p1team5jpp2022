@@ -12,13 +12,13 @@ const Product = ({ product }) => {
           className="product-image"
           src={product.image}
           variant="top"
-          alt={product.name}
+          alt={product.title}
         />
       </Link>
       <Card.Body>
         <Link to={`/product/${product._id}`}>
           <Card.Title as="div">
-            <strong>{product.name}</strong>
+            <strong>{product.title}</strong>
           </Card.Title>
         </Link>
         <Card.Text as="div">

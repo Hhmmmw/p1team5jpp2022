@@ -82,12 +82,12 @@ const ProductPage = ({ history, match }) => {
               <Row>
                 <Col md={6}>
                   {" "}
-                  <Image src={product.image} alt={product.name} fluid />
+                  <Image src={product.image} alt={product.title} fluid />
                 </Col>
                 <Col md={6}>
                   <ListGroup variant="flush">
                     <ListGroup.Item>
-                      <h2>{product.name}</h2>
+                      <h2>{product.title}</h2>
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <Rating
