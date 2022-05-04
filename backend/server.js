@@ -165,7 +165,7 @@ app.get('/api/products', async (req, res) => {
       const col = db.collection('products');
       let resutls = [];
       // col.find(kw!=='' ? { "title": { $search: kw } } : {}).limit(500).forEach(function (doc) {
-        (async (()=>((kw!=='')? col.aggregate([{$search:{"wildcard":{"query":`${kw}`, 'path': { 'wildcard': '*'} }}}]):col.find({}))).limit(500).forEach(function (doc) {
+        (async ()=>(((kw!=='')? col.aggregate([{$search:{"wildcard":{"query":`${kw}`, 'path': { 'wildcard': '*'},"allowAnalyzedField": true }}}]):col.find({}))).limit(500).forEach(function (doc) {
       // col.find(kw !== '' ? [{ '$search': { 'index': 'default', 'text': { 'query': 'wd', 'path': { 'wildcard': '*'}  } } }] : {}).limit(500).forEach(function (doc) {
         if (doc) {
           // console.log(doc)
