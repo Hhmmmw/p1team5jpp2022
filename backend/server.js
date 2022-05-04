@@ -171,7 +171,7 @@ app.get('/api/products', async (req, res) => {
             :
             col.find({})
             )
-            )
+            )()
             .then(e=>{ 
               e.limit(500).forEach(function (doc) {
               // col.find(kw !== '' ? [{ '$search': { 'index': 'default', 'text': { 'query': 'wd', 'path': { 'wildcard': '*'}  } } }] : {}).limit(500).forEach(function (doc) {
