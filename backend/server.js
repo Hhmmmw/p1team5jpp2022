@@ -164,7 +164,7 @@ app.get('/api/products', async (req, res) => {
       const db = client.db('jppTeam5p1');
       const col = db.collection('products');
       let resutls = [];
-      col.find(kw!=='' ? { "title": { $regex: kw } } : {}).limit(500).forEach(function (doc) {
+      col.find(kw!=='' ? { "title": { $search: kw } } : {}).limit(500).forEach(function (doc) {
       // col.find(kw !== '' ? [{ '$search': { 'index': 'default', 'text': { 'query': 'wd', 'path': { 'wildcard': '*' } } } }] : {}).limit(500).forEach(function (doc) {
         if (doc) {
           // console.log(doc)
