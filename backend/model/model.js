@@ -18,7 +18,7 @@ const UserModel = mongoose.model('user', UserSchema);
 
 UserSchema.pre(
     'save',
-    async function(next) {
+    async (next)=> {
       const user = this;
       const hash = await bcrypt.hash(this.password, 10);
   
@@ -26,7 +26,7 @@ UserSchema.pre(
       next();
     }
   );
-  UserSchema.methods.isValidPassword = async function(password) {
+  UserSchema.methods.isValidPassword = async (password)=>{
     const user = this;
     const compare = await bcrypt.compare(password, user.password);
   

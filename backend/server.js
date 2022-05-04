@@ -4,22 +4,22 @@ const app = express()
 const bodyParser = require('body-parser')
 const _ = require('underscore');
 const path = require('path');
-app.use(express.static(path.join(__dirname, '../frontend/build')));
-const username = encodeURIComponent("m001-student");
-const password = encodeURIComponent("m001-mongodb-basics");
-
-const uri = `mongodb+srv://${username}:${password}@sandbox.vj9dy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-var assert = require('assert');
-const url = uri;// 'mongodb://localhost/'
-
 require('dotenv').config();
+app.use(express.static(path.join(__dirname, '../frontend/build')));
+const username = encodeURIComponent(`${process.env.MONGO_UN}`);
+const password = encodeURIComponent(`${process.env.MONGO_PW}`);
+const servername = encodeURIComponent(`${process.env.MONGO_SRV}`);
+const url = `mongodb+srv://${username}:${password}@${servername}/myFirstDatabase?retryWrites=true&w=majority`;
+var assert = require('assert');
+
+
 
 app.use(bodyParser.json());
 app.get('/', (req, res) => {
-  if(process.env.LOCALHOST=="false")
-  res.sendFile(path.join(__dirname + '../frontend/build/index.html'));
+  if (process.env.LOCALHOST == "false")
+    res.sendFile(path.join(__dirname + '../frontend/build/index.html'));
   else
-  res.sendFile(path.join(__dirname + '../frontend/index.html'));
+    res.sendFile(path.join(__dirname + '../frontend/index.html'));
 
 });
 
@@ -165,7 +165,7 @@ app.get('/api/products', async (req, res) => {
       const col = db.collection('products');
       let resutls = [];
       // col.find(kw!=='' ? { $text: { $search: kw } } : {}).limit(500).forEach(function (doc) {
-        col.find(kw!=='' ? { $text: { $search: kw } } : {}).limit(500).forEach(function (doc) {
+      col.find(kw !== '' ? { $text: { $search: kw } } : {}).limit(500).forEach(function (doc) {
         if (doc) {
           // console.log(doc)
           resutls.push(doc)
@@ -173,7 +173,7 @@ app.get('/api/products', async (req, res) => {
       }).finally(e => {
         if (!!resutls) {
           // console.log(resutls);
-          res.json({products:resutls,pages:1,page:1});
+          res.json({ products: resutls, pages: 1, page: 1 });
         } else {
           res.status(404).send();
           client.close();
@@ -838,3 +838,43 @@ app.get('/api/orders/myorders', async (req, res) => {
 app.listen(process.env.PORT || 3001,
   () => console.log("Server is running..."));
 
+//////////app.js///////
+// const express = require('express');
+// const mongoose = require('mongoose');
+const passport = require('passport');
+const bodyParser = require('body-parser');
+
+const UserModel = require('./model/model');
+
+// mongoose.connect('mongodb://127.0.0.1:27017/passport-jwt', { useMongoClient: true });
+// mongoose.connect("mongodb://127.0.0.1:27017/passport-jwt", {
+  // useNewUrlParser: true,
+  // useUnifiedTopology: true,
+// });
+// mongoose.set("useCreateIndex", true);
+// mongoose.connection.on('error', error => console.log(error) );
+// mongoose.Promise = global.Promise;
+
+require('./auth/auth');
+
+const routes = require('./routes/routes');
+const secureRoute = require('./routes/secure-routes');
+
+// const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use('/', routes);
+
+// Plug in the JWT strategy as a middleware so only verified users can access this route.
+app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
+
+// Handle errors.
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.json({ error: err });
+});
+
+// app.listen(3002, () => {
+  // console.log('Server started.')
+// });
