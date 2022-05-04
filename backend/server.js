@@ -164,32 +164,22 @@ app.get('/api/products', async (req, res) => {
       const db = client.db('jppTeam5p1');
       const col = db.collection('products');
       let resutls = [];
-      // col.find(kw!=='' ? { "title": { $search: kw } } : {}).limit(500).forEach(function (doc) {
-        (
-          async ()=>(
-            (kw!=='')? col.aggregate([{$search:{"wildcard":{"query":`${kw}`, 'path': { 'wildcard': '*'},"allowAnalyzedField": true }}}])
-            :
-            col.find({})
-            )
-            )()
-            .then(e=>{ 
-              e.limit(500).forEach(function (doc) {
-              // col.find(kw !== '' ? [{ '$search': { 'index': 'default', 'text': { 'query': 'wd', 'path': { 'wildcard': '*'}  } } }] : {}).limit(500).forEach(function (doc) {
-                if (doc) {
-                  // console.log(doc)
-                  resutls.push(doc)
-                }
-              }).finally(e => {
-                if (!!resutls) {
-                  // console.log(resutls);
-                  res.json({ products: resutls, pages: 1, page: 1 });
-                } else {
-                  res.status(404).send();
-                  client.close();
-                  return false;
-                }
-              });});
-           
+      (async () => ((kw !== '') ? col.aggregate([{ $search: { "wildcard": { "query": `${kw}`, 'path': { 'wildcard': '*' }, "allowAnalyzedField": true } } }]) : col.find({})))()
+        .then(e => {
+          e.limit(500).forEach(function (doc) {
+            if (doc) {
+              resutls.push(doc)
+            }
+          }).finally(e => {
+            if (!!resutls) {
+              res.json({ products: resutls, pages: 1, page: 1 });
+            } else {
+              res.status(404).send();
+              client.close();
+              return false;
+            }
+          });
+        });
     });
   })();
 });
