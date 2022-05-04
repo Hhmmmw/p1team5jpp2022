@@ -840,9 +840,9 @@ app.listen(process.env.PORT || 3001,
 
 //////////app.js///////
 // const express = require('express');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const passport = require('passport');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 
 const UserModel = require('./model/model');
 
