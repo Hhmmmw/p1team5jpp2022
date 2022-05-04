@@ -37,7 +37,7 @@ router.post(
   }
 );
 router.post(
-    '/login',
+    '/api/users/login',
     async (req, res, next) => {
       passport.authenticate(
         'login',

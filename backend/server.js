@@ -867,12 +867,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', routes);
 
 // Plug in the JWT strategy as a middleware so only verified users can access this route.
-app.use('/user', passport.authenticate('jwt', { session: false }), secureRoute);
+app.use('/api/users', passport.authenticate('jwt', { session: false }), secureRoute);
 
 // Handle errors.
 app.use(function (err, req, res, next) {
   res.status(err.status || 500);
-  res.json({ error: err });
+  res.json({ error: {req,err,res} });
 });
 
 // app.listen(3002, () => {
